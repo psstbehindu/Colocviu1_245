@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ro.pub.cs.systems.eim.Colocviu1_245.R;
+import ro.pub.cs.systems.eim.Colocviu1_245.general.Constants;
 
 public class Colocviu1_245MainActivity extends AppCompatActivity {
 
@@ -41,6 +43,14 @@ public class Colocviu1_245MainActivity extends AppCompatActivity {
                         }
                     }
                     break;
+
+//                case R.id.compute_button:
+//                    Intent intent_send = new Intent(getApplicationContext(), Colocviu1_245MainActivity.class);
+//                    intent.putExtra(Constants.TOTAL_SUM, total_sum);
+//                    startActivityForResult(intent_send, Constants.MAIN_ACTIVITY_REQUEST_CODE);
+//
+//                    break;
+
             }
         }
     }
@@ -59,4 +69,14 @@ public class Colocviu1_245MainActivity extends AppCompatActivity {
 
         add_button.setOnClickListener(buttonClickListener);
     }
+
+
+
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+//        if (requestCode == Constants.SECONDARY_ACTIVITY_REQUEST_CODE) {
+//            Toast.makeText(this, "The activity returned with result " + resultCode, Toast.LENGTH_LONG).show();
+//        }
+//    }
 }
