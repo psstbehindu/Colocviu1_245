@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import ro.pub.cs.systems.eim.Colocviu1_245.R;
 
 public class Colocviu1_245MainActivity extends AppCompatActivity {
@@ -17,6 +20,7 @@ public class Colocviu1_245MainActivity extends AppCompatActivity {
     private EditText next_term;
     private EditText all_terms;
 
+    private ArrayList<Integer> terms_to_add = new ArrayList<>();
 
     private ButtonClickListener buttonClickListener = new ButtonClickListener();
 
@@ -30,8 +34,10 @@ public class Colocviu1_245MainActivity extends AppCompatActivity {
                     if (!StringUtils.isNullOrWhiteSpace(next_term.getText().toString()) && next_term.getText().toString().matches("\\d*")) {
                         if (!all_terms.getText().toString().equals("")) {
                             all_terms.setText(all_terms.getText().toString().concat(" + " + next_term.getText().toString()));
+                            terms_to_add.add(Integer.valueOf(next_term.getText().toString()));
                         } else {
                             all_terms.setText(all_terms.getText().toString().concat(next_term.getText().toString()));
+                            terms_to_add.add(Integer.valueOf(next_term.getText().toString()));
                         }
                     }
                     break;
