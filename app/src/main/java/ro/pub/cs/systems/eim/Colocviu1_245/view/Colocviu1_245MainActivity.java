@@ -26,6 +26,8 @@ public class Colocviu1_245MainActivity extends AppCompatActivity {
 
     private ButtonClickListener buttonClickListener = new ButtonClickListener();
 
+    private boolean flag_add = false;
+
 
     private class ButtonClickListener implements View.OnClickListener {
 
@@ -33,6 +35,7 @@ public class Colocviu1_245MainActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch(view.getId()) {
                 case R.id.add_button:
+                    flag_add = true;
                     if (!StringUtils.isNullOrWhiteSpace(next_term.getText().toString()) && next_term.getText().toString().matches("\\d*")) {
                         if (!all_terms.getText().toString().equals("")) {
                             all_terms.setText(all_terms.getText().toString().concat(" + " + next_term.getText().toString()));
@@ -45,16 +48,13 @@ public class Colocviu1_245MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.compute_button:
-                    Intent intent_send = new Intent(getApplicationContext(), Colocviu1_245SecondaryActivity.class);
-                    intent_send.putExtra(Constants.TERMS_LIST, terms_to_add);
-                    startActivityForResult(intent_send, Constants.SECONDARY_ACTIVITY_REQUEST_CODE);
-
-                    Intent intent = getIntent();
-                    if (intent != null && intent.getExtras().containsKey(Constants.TOTAL_SUM)) {
-                        total_sum = intent.getIntExtra(Constants.TOTAL_SUM, -1);
-                        Toast.makeText(getApplicationContext(), "The activity returned with result " + total_sum, Toast.LENGTH_LONG).show();
+                    if (!flag_add) {
+                        Toast.makeText(getApplicationContext(), "Existing sum " + total_sum, Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent_send = new Intent(getApplicationContext(), Colocviu1_245SecondaryActivity.class);
+                        intent_send.putExtra(Constants.TERMS_LIST, terms_to_add);
+                        startActivityForResult(intent_send, Constants.SECONDARY_ACTIVITY_REQUEST_CODE);
                     }
-
                     break;
 
             }
@@ -106,6 +106,7 @@ public class Colocviu1_245MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == Constants.SECONDARY_ACTIVITY_REQUEST_CODE) {
             Toast.makeText(this, "The activity returned with result " + resultCode, Toast.LENGTH_LONG).show();
+            flag_add = false;
         }
     }
 }

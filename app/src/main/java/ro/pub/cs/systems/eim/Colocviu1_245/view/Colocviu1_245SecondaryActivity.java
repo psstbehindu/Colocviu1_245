@@ -27,9 +27,10 @@ public class Colocviu1_245SecondaryActivity extends AppCompatActivity {
                 }
             }
 
-            Intent intent_send = new Intent(getApplicationContext(), Colocviu1_245MainActivity.class);
+            Intent intent_send = new Intent();
             intent_send.putExtra(Constants.TOTAL_SUM, total_sum);
-            startActivityForResult(intent_send, Constants.MAIN_ACTIVITY_REQUEST_CODE);
+            setResult(total_sum, intent_send);
+            finish();
         }
     }
 }
