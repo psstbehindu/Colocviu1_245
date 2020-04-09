@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Colocviu1_245</string>
-    <string name="add_button">add_button</string>
+    <string name="add_button">Add</string>
     <string name="all_terms">all_terms</string>
-    <string name="compute_button">compute_button</string>
+    <string name="compute_button">Compute</string>
 </resources>
