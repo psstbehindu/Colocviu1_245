@@ -21,7 +21,7 @@ public class Colocviu1_245MainActivity extends AppCompatActivity {
     private Button compute_button;
     private EditText next_term;
     private EditText all_terms;
-
+    private int total_sum = 0;
     private ArrayList<Integer> terms_to_add = new ArrayList<>();
 
     private ButtonClickListener buttonClickListener = new ButtonClickListener();
@@ -44,12 +44,18 @@ public class Colocviu1_245MainActivity extends AppCompatActivity {
                     }
                     break;
 
-//                case R.id.compute_button:
-//                    Intent intent_send = new Intent(getApplicationContext(), Colocviu1_245MainActivity.class);
-//                    intent.putExtra(Constants.TOTAL_SUM, total_sum);
-//                    startActivityForResult(intent_send, Constants.MAIN_ACTIVITY_REQUEST_CODE);
-//
-//                    break;
+                case R.id.compute_button:
+                    Intent intent_send = new Intent(getApplicationContext(), Colocviu1_245SecondaryActivity.class);
+                    intent_send.putExtra(Constants.TERMS_LIST, terms_to_add);
+                    startActivityForResult(intent_send, Constants.SECONDARY_ACTIVITY_REQUEST_CODE);
+
+                    Intent intent = getIntent();
+                    if (intent != null && intent.getExtras().containsKey(Constants.TOTAL_SUM)) {
+                        total_sum = intent.getIntExtra(Constants.TOTAL_SUM, -1);
+                        Toast.makeText(getApplicationContext(), "The activity returned with result " + total_sum, Toast.LENGTH_LONG).show();
+                    }
+
+                    break;
 
             }
         }
@@ -68,15 +74,38 @@ public class Colocviu1_245MainActivity extends AppCompatActivity {
 
 
         add_button.setOnClickListener(buttonClickListener);
+
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(Constants.TOTAL_SUM)) {
+                total_sum = Integer.valueOf(savedInstanceState.getString(Constants.TOTAL_SUM));
+            } else {
+                total_sum = 0;
+            }
+
+        }
     }
 
 
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(Constants.TOTAL_SUM, String.valueOf(total_sum));
+    }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-//        if (requestCode == Constants.SECONDARY_ACTIVITY_REQUEST_CODE) {
-//            Toast.makeText(this, "The activity returned with result " + resultCode, Toast.LENGTH_LONG).show();
-//        }
-//    }
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        if (savedInstanceState.containsKey(Constants.TOTAL_SUM) && savedInstanceState.getString(Constants.TOTAL_SUM) != null) {
+            total_sum = Integer.valueOf(savedInstanceState.getString(Constants.TOTAL_SUM));
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == Constants.SECONDARY_ACTIVITY_REQUEST_CODE) {
+            Toast.makeText(this, "The activity returned with result " + resultCode, Toast.LENGTH_LONG).show();
+        }
+    }
 }
